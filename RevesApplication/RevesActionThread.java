@@ -70,7 +70,7 @@ public class RevesActionThread extends ActionThread
     public void executeApplication()
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
-        towersOfHanoi(disks, a, d, b);
+        reves(disks, a, d, b, c);
     }
 
 
@@ -249,6 +249,28 @@ public class RevesActionThread extends ActionThread
             towersOfHanoi(n-1, extra, to, from);
         }
     }
-            
-} // end class RevesActionThread
+
+    public static int computeK(int n){
+        int k = 1;
+        while (n>k*(k+1)/2) {
+            k++;
+        }
+        return k;
+    }
+
+    public void reves(int n, Pole from, Pole to, Pole extra1, Pole extra2) {
+        if (n == 0) {
+            return;
+        }
+        if (n == 1) {
+            moveDisk(from, to);
+            return;
+        }
+        int k = computeK(n);
+        reves(n - k, from, extra1, extra2, to);
+        towersOfHanoi(k, from, to, extra2);
+        reves(n-k, extra1, to, from, extra2);
+
+    }
+    }// end class RevesActionThread
 
