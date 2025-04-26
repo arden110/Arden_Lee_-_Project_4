@@ -56,14 +56,23 @@ public class RevesActionThread extends ActionThread
         moveString = "";
 
         // ADD INITIALIZATION CODE HERE
+        a = new Pole("A", disks);
+        b = new Pole("B", disks);
+        c = new Pole("C", disks);
+        d = new Pole("D", disks);
 
+        for (int i = disks; i > 0; i--){
+            a.addDisk(new Disk(i));
+        }
     }
         
 
     public void executeApplication()
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
+        towersOfHanoi(disks, a, d, b);
     }
+
 
     /**
      * Move a disk from one pole to another pole.
@@ -76,6 +85,8 @@ public class RevesActionThread extends ActionThread
         Disk toMove = null;
         
         // ADD CODE HERE TO MOVE A DISK FROM ONE POLE TO THE OTHER
+        toMove = from.removeDisk();
+        to.addDisk(toMove);
 
         movesMade++;
         moveString = "Move #" + movesMade 
@@ -229,7 +240,15 @@ public class RevesActionThread extends ActionThread
             setupStatusLabel.setText("Need integer value for number of disks");
         }
     
-    }  
+    }
+
+    public void towersOfHanoi(int n, Pole from, Pole to, Pole extra) {
+        if (n>0) {
+            towersOfHanoi(n-1, from, extra, to);
+            moveDisk(from, to);
+            towersOfHanoi(n-1, extra, to, from);
+        }
+    }
             
 } // end class RevesActionThread
 
