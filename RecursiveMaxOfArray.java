@@ -17,8 +17,24 @@ public class RecursiveMaxOfArray
     public  int max(int data[], int from, int to)
     {
         int result = 0;
-        
+
         // ADD YOUR CODE HERE
+        if (data == null) {
+            throw new BadArgumentsForMaxException("null array");
+        }
+
+        if (from < 0 || to < 0 || from > to || to >= data.length) {
+            throw new BadArgumentsForMaxException("bad input");
+        }
+
+        if (from == to){
+            result = data[from];
+        } else {
+            int mid = (from + to) / 2;
+            int firstHalf = max(data, from, mid);
+            int secondHalf = max(data, mid+1, to);
+            result =  Math.max(firstHalf, secondHalf);
+        }
 //vvvvvvvvv ADDED CODE vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv        
 
         return result;
